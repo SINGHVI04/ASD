@@ -3,12 +3,12 @@
   --panel:#121316;    
   --text:#e8ecf1;
   --muted:#9aa3b2;
-  --accent:#ff6b6b;    
+  --accent:#6bffa9;    
   --card:#16181d;
   --border:rgba(255,255,255,.08);
 
-  --neon-pink:#ff3cac;
-  --neon-green:#39ff14;
+  --neon-pink:#afdc1b;
+  --neon-green:#9b35e9;
   --neon-blue:#00e7ff;
 
   --container:1100px;
@@ -56,7 +56,7 @@ p{margin:0 0 14px; color:var(--muted)}
 }
 .hero-left h1{font-size:clamp(26px,5vw,54px); line-height:1.05}
 .accent{color:var(--accent)}
-.roles{color:#ff7a59}
+.roles{color:#8fc320}
 .cta-row{display:flex; gap:12px; flex-wrap:wrap}
 .hero-right{
   border-radius:14px; overflow:hidden; background:#0e0f12;
