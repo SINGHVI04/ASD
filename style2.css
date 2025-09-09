@@ -1,0 +1,142 @@
+:root{
+  --bg:#0a0a0a;        
+  --panel:#121316;    
+  --text:#e8ecf1;
+  --muted:#9aa3b2;
+  --accent:#ff6b6b;    
+  --card:#16181d;
+  --border:rgba(255,255,255,.08);
+
+  --neon-pink:#ff3cac;
+  --neon-green:#39ff14;
+  --neon-blue:#00e7ff;
+
+  --container:1100px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  line-height:1.55;
+}
+img{max-width:100%; display:block}
+
+.container{width:min(100%,var(--container)); margin-inline:auto; padding-inline:clamp(16px,3vw,32px)}
+.section{padding-block:64px}
+h1,h2,h3{margin:0 0 10px}
+p{margin:0 0 14px; color:var(--muted)}
+
+.site-header{
+  position:sticky; top:0; z-index:20;
+  background:linear-gradient(180deg, rgba(0,0,0,.7), rgba(0,0,0,0));
+  backdrop-filter: blur(6px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-inner{height:64px; display:flex; align-items:center; justify-content:space-between}
+.brand{font-weight:800; color:#fff; text-decoration:none}
+.nav{display:flex; gap:24px; align-items:center}
+.nav a{color:#fff; text-decoration:none; opacity:.9}
+.nav a:hover{opacity:1}
+
+.menu-toggle{display:none}
+@media (max-width:900px){
+  .menu-toggle{display:inline-flex; align-items:center; gap:8px}
+  .nav{position:absolute; right:16px; top:64px; background:var(--panel);
+    border:1px solid var(--border); border-radius:12px; padding:12px;
+    display:flex; flex-direction:column; gap:10px; min-width:180px}
+  .nav[hidden]{display:none}
+}
+
+.hero{padding-block:40px}
+.hero-grid{
+  display:grid; gap:clamp(20px,4vw,48px);
+  grid-template-columns: 1.2fr 1fr; align-items:center;
+}
+.hero-left h1{font-size:clamp(26px,5vw,54px); line-height:1.05}
+.accent{color:var(--accent)}
+.roles{color:#ff7a59}
+.cta-row{display:flex; gap:12px; flex-wrap:wrap}
+.hero-right{
+  border-radius:14px; overflow:hidden; background:#0e0f12;
+  box-shadow:0 12px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.hero-right img{height:100%; width:100%; object-fit:cover}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+}
+
+.cards{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+}
+@media (max-width:900px){
+  .cards{grid-template-columns:1fr}
+}
+
+.contact-form{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+}
+.contact-form .grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;
+}
+.contact-form .block{display:block; margin-bottom:12px}
+label span{display:block; font-size:.9rem; color:#cfd6df; margin-bottom:6px}
+input, textarea{
+  width:100%; color:#fff; background:#0f1115; border:1px solid var(--border);
+  border-radius:10px; padding:10px 12px; outline:none;
+}
+input:focus, textarea:focus{border-color:#2fc1ff; box-shadow:0 0 0 3px rgba(47,193,255,.2)}
+@media (max-width:900px){
+  .contact-form .grid{grid-template-columns:1fr}
+}
+
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 18px; border-radius:999px; font-weight:600;
+  color:#0b0d10; background:#fff; text-decoration:none; border:none; cursor:pointer;
+}
+.btn.small{padding:8px 14px; font-weight:600}
+.btn.outline{color:#fff; background:transparent; border:1px solid var(--border)}
+
+
+.neon{
+  color:#0b0d10; background:#0b0d10; border:1px solid currentColor;
+  position:relative; overflow:hidden;
+  transition:transform .12s ease, box-shadow .2s ease, color .2s ease, background .2s ease;
+}
+.neon::before{
+  content:""; position:absolute; inset:-2px; border-radius:inherit;
+  box-shadow: 0 0 12px currentColor, 0 0 24px currentColor, 0 0 48px currentColor;
+  opacity:.55; pointer-events:none;
+}
+.neon:hover{transform:translateY(-1px); color:#0b0d10; background:currentColor; box-shadow:0 0 16px currentColor, 0 0 48px currentColor}
+.neon-pink{color:var(--neon-pink)}
+.neon-green{color:var(--neon-green)}
+.neon-blue{color:var(--neon-blue)}
+
+
+@media (prefers-reduced-motion: reduce){
+  .neon, .neon::before{transition:none}
+  .reveal{transition:none}
+}
+
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease}
+.reveal.show{opacity:1; transform:translateY(0)}
+
+
+.site-footer{border-top:1px solid var(--border); color:#9aa3b2; padding:22px 0; margin-top:32px}
+.footer-inner{display:flex; justify-content:center}
