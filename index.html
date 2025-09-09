@@ -1,63 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PIYUSH SINGH — Portfolio</title>
-  <link rel="stylesheet" href="style2.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style1.css">
 </head>
-  <body>
-    <!-- keep your original markup but use nicer image path and same IDs/classes -->
-<article class="card reveal" data-tilt>
-<h3>Portfolio Website</h3>
-<p>A personal website to showcase skills and projects.</p>
-<a class="btn neon neon-green small" href="#">Open</a>
-</article>
+<body>
 
+  <!-- Navigation -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-<article class="card reveal" data-tilt>
-<h3>Random Web</h3>
-<p>An online random web.</p>
-<a class="btn neon neon-blue small" href="#">Open</a>
-</article>
+  <!-- Optional profile image -->
+  <img src="#" 
+       alt="Piyush Singh" align="right" height="500">
 
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>Hi, I'm Piyush Singh</h1>
+    <p>Web Developer | Programmer | Learner</p>
+  </section>
+  
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About Me</h2>
+    <p>I am passionate about creating websites and learning new technologies. 
+       I love working on web development projects that challenge me to grow.</p>
+  </section>
 
-<article class="card reveal" data-tilt>
-<h3>Blog</h3>
-<p>A blog platform to share travel experiences.</p>
-<a class="btn neon neon-pink small" href="#">Open</a>
-</article>
-</div>
-</section>
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <h2>My Projects</h2>
+    <div class="projects-grid">
+      <div class="project">
+        <h3>Portfolio Website</h3>
+        <p>A personal website to showcase my skills and projects.</p>
+      </div>
+      <div class="project">
+        <h3>Restaurant Website</h3>
+        <p>An online menu with ordering features.</p>
+      </div>
+      <div class="project">
+        <h3>Travel Blog</h3>
+        <p>A blog platform to share travel experiences.</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Me</h2>
+    <form onsubmit="sendMessage(event)">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
 
-<section id="contact" class="section reveal">
-<h2>Contact Me</h2>
-<form class="contact-form" action="#" method="post">
-<div class="grid">
-<label>
-<span>Your Name</span>
-<input type="text" required />
-</label>
-<label>
-<span>Your Email</span>
-<input type="email" required />
-</label>
-</div>
-<label class="block">
-<span>Your Message</span>
-<textarea rows="5" required></textarea>
-</label>
-<button type="submit" class="btn neon neon-green">Send</button>
-</form>
-</section>
-</main>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Piyush Singh | All Rights Reserved</p>
+  </footer>
 
-
-<footer class="site-footer container">
-<div class="footer-inner">
-<small>© 2025 Piyush Singh</small>
-</div>
-</footer>
+  <!-- External JavaScript -->
+  <script src="script1.js"></script>
 </body>
 </html>
