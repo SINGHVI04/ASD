@@ -1,45 +1,75 @@
-const $ = (s, c=document)=>c.querySelector(s);
-const $$ = (s, c=document)=>Array.from(c.querySelectorAll(s));
+const qs = (s, el=document)=>el.querySelector(s);
+const qsa = (s, el=document)=>[...el.querySelectorAll(s)];
 
-const header = $('.site-header');
-const offsetTop = el => el.getBoundingClientRect().top + window.scrollY - (header?.offsetHeight || 0) - 6;
-$$('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    const id=a.getAttribute('href').slice(1);
-    const target=document.getElementById(id);
-    if(!target) return;
-    e.preventDefault();
-    window.scrollTo({ top: offsetTop(target), behavior: 'smooth' });
-  });
+
+// Menu toggle for small screens
+const menuBtn = qs('.menu-toggle');
+const nav = qs('#primary-nav');
+menuBtn?.addEventListener('click', ()=>{
+const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+menuBtn.setAttribute('aria-expanded', String(!expanded));
+nav.style.display = expanded ? '' : 'flex';
 });
 
 
-const toggleBtn = $('.menu-toggle');
-const nav = toggleBtn ? document.getElementById(toggleBtn.getAttribute('aria-controls')) : null;
-if(toggleBtn && nav){
-  nav.hidden = true;
-  toggleBtn.addEventListener('click', ()=>{
-    const open = toggleBtn.getAttribute('aria-expanded') === 'true';
-    toggleBtn.setAttribute('aria-expanded', String(!open));
-    nav.hidden = open;
-    document.body.classList.toggle('no-scroll', !open);
-  });
-  document.addEventListener('click', (e)=>{
-    if(!nav.hidden && !nav.contains(e.target) && e.target!==toggleBtn){
-      toggleBtn.click();
-    }
-  });
+// Reveal on scroll
+const reveals = qsa('.reveal');
+const handleReveal = ()=>{
+const top = window.innerHeight * 0.85;
+reveals.forEach(el=>{
+const r = el.getBoundingClientRect();
+if(r.top < top) el.classList.add('visible');
+})
+}
+window.addEventListener('scroll', handleReveal); handleReveal();
+
+
+// Portrait parallax / tilt
+const portrait = qs('#portraitCard');
+const applyTilt = (el, x, y, strength=14)=>{
+// x,y are -1..1
+el.style.transform = `rotateX(${y*strength}deg) rotateY(${x*strength}deg) translateZ(6px)`;
+}
+if(portrait){
+portrait.addEventListener('mousemove', (e)=>{
+const r = portrait.getBoundingClientRect();
+const x = (e.clientX - r.left) / r.width * 2 - 1;
+const y = (e.clientY - r.top) / r.height * 2 - 1;
+applyTilt(portrait, x, -y, 6);
+});
+portrait.addEventListener('mouseleave', ()=>{portrait.style.transform='none'});
+portrait.addEventListener('touchmove', (ev)=>{
+const t = ev.touches[0];
+const r = portrait.getBoundingClientRect();
+const x = (t.clientX - r.left) / r.width * 2 - 1;
+const y = (t.clientY - r.top) / r.height * 2 - 1;
+applyTilt(portrait, x, -y, 6);
+}, {passive:true});
 }
 
-const reveals = $$('.reveal');
-if('IntersectionObserver' in window && reveals.length){
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('show');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.18, rootMargin: '0px 0px -5% 0px' });
-  reveals.forEach(el=>io.observe(el));
-}
+
+// Card tilt effect (lightweight) for elements with data-tilt
+qsa('[data-tilt]').forEach(card=>{
+const strength = 8;
+card.addEventListener('mousemove', e=>{
+const r = card.getBoundingClientRect();
+const x = (e.clientX - r.left)/r.width * 2 - 1;
+const y = (e.clientY - r.top)/r.height * 2 - 1;
+card.style.transform = `rotateX(${ -y * strength }deg) rotateY(${ x * strength }deg) translateZ(8px)`;
+});
+card.addEventListener('mouseleave', ()=>{card.style.transform = ''});
+// subtle floating
+card.animate([{transform:'translateY(0px)'},{transform:'translateY(-6px)'},{transform:'translateY(0px)'}],{duration:4000 + Math.random()*2000,iterations:Infinity, direction:'alternate', easing:'ease-in-out'})
+});
+
+
+// subtle parallax on mouse for the whole page background
+let raf = null;
+window.addEventListener('mousemove', e=>{
+const x = (e.clientX / innerWidth - 0.5) * 20; // -10..10
+const y = (e.clientY / innerHeight - 0.5) * 10; // -5..5
+if(raf) cancelAnimationFrame(raf);
+raf = requestAnimationFrame(()=>{
+document.body.style.backgroundPosition = `${50 - x}% ${30 - y}%`;
+});
+});
